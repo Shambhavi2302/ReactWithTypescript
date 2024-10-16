@@ -34,23 +34,23 @@
 
 import React, { useState } from "react";
 import NavBar from "../components/NavBar";
-import { ExampleComp } from "../examplecomponent.model";
-import { makeAPIPOSTRequset } from "./BaseAPI";
+import { ExampleCompModel } from "../examplecomponent.model";
+import { makeAPIPOSTRequest } from "./BaseAPI";
 
 const ExampleComponent: React.FC = () => {
-  const [data, setData] = useState<ExampleComp[]>([]);
+  const [data, setData] = useState<ExampleCompModel[]>([]);
 
-  const handleCallAPI = (apiData: Partial<ExampleComp> = {}) => {
+  const handleCallAPI = (apiData: Partial<ExampleCompModel> = {}) => {
     let options = {
-      successCallback: (response: ExampleComp) => {
+      successCallback: (response: Partial<ExampleCompModel>) => {
         console.log("Setting data:", response);
-        setData([response]);
+        setData([response as ExampleCompModel]);
       },
       failureCallBack: (err: any) => {
         setData([]);
       },
     };
-    makeAPIPOSTRequset("api/users", apiData, "", options);
+    makeAPIPOSTRequest("api/users", apiData, "", options);
   };
 
   return (
